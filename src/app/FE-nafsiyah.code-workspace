@@ -1,0 +1,86 @@
+{
+  "folders": [
+	{
+		"name": "FE-nafsiyah",
+		"path": "../../../../FE-nafsiyah"
+	},
+	{
+		"name": "BE-Nafsiyah",
+		"path": "../../../../BE-Nafsiyah"
+	},
+	{
+		"name": "workshop-app-js",
+		"path": "../../../../workshop-app-js"
+	},
+	{
+		"name": "workshop-app",
+		"path": "C:/laragon/www/workshop-app"
+	},
+	{
+		"name": "app_nafsiyah",
+		"path": "C:/laragon/www/app_nafsiyah"
+	},
+	{
+		"name": "todo-nafsiyah",
+		"path": "C:/laragon/www/todo-nafsiyah"
+	},
+	{
+		"name": "ChatBot-LLM-main",
+		"path": "../../../../ChatBot-LLM-main/ChatBot-LLM-main"
+	},
+	{
+		"name": "project-toko",
+		"path": "C:/laragon/www/project-toko"
+	},
+	{
+		"name": "dinasti-system-admin",
+		"path": "../../../../Project JIB/dinasti-system-admin"
+	},
+	{
+		"name": "MKI-order-system",
+		"path": "../../../../Project JIB/MKI-order-system"
+	},
+	{
+		"name": "MSI-order-system",
+		"path": "../../../../Project JIB/MSI-order-system"
+	},
+	{
+		"name": "MSI-werehouse",
+		"path": "../../../../Project JIB/MSI-werehouse"
+	},
+	{
+		"name": "EEI-finance-app",
+		"path": "../../../../Project JIB/EEI-finance-app"
+	},
+	{
+		"name": "workshop-app-baron",
+		"path": "C:/laragon/www/workshop-app-baron"
+	},
+	{
+		"name": "project-joki-neng",
+		"path": "C:/laragon/www/project-joki-neng"
+	},
+	{
+		"name": "project-joki-dea",
+		"path": "C:/laragon/www/project-joki-dea"
+	},
+	{
+		"name": "spp_alfath",
+		"path": "C:/laragon/www/spp_alfath"
+	},
+	{
+		"name": "tugas_sensor_mobile",
+		"path": "C:/Users/Akbar/Downloads/tugas_sensor_mobile/tugas_sensor_mobile"
+	},
+	{
+		"name": "pembayaran_spp",
+		"path": "C:/laragon/www/pembayaran_spp"
+	},
+	{
+		"path": "../../.."
+	}
+],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "EEI-finance-app"
+  }
+}
