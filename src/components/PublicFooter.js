@@ -95,7 +95,7 @@ export default function PublicFooter() {
   <div className="flex items-center gap-4">
 
     <Image
-      src="/logo-terbaru.png"
+      src="/logo-terbaru-1.png"
       alt="AbayyyDev Logo"
       width={56}
       height={56}
