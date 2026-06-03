@@ -43,7 +43,7 @@ export default function PublicHeader() {
                   <Link href="/" className="group flex items-center gap-3">
         <div className="relative">
           <Image
-            src="/logo-abayyydev.png"
+            src="/logo-terbaru-1.png"
             alt="AbayyyDev"
             width={50}
             height={50}
