@@ -14,7 +14,7 @@ export default function SkillsManager() {
 
   const fetchSkills = () => {
     axios
-      .get("http://localhost:5000/skills")
+      .get("https://4g6q9fjz-5000.asse.devtunnels.ms/skills")
       .then((res) => setSkills(res.data))
       .catch((err) => console.error("Gagal mengambil data skills", err));
   };
@@ -39,7 +39,7 @@ export default function SkillsManager() {
     formData.append("image", file);
 
     try {
-      await axios.post("http://localhost:5000/skills", formData);
+      await axios.post("https://4g6q9fjz-5000.asse.devtunnels.ms/skills", formData);
 
       // Reset Form setelah sukses
       setForm({ name: "", category: "Frontend" });
@@ -79,7 +79,7 @@ export default function SkillsManager() {
 
     if (result.isConfirmed) {
       try {
-        await axios.delete(`http://localhost:5000/skills/${id}`);
+        await axios.delete(`https://4g6q9fjz-5000.asse.devtunnels.ms/skills/${id}`);
         fetchSkills();
         Swal.fire({
           title: "Terhapus!",

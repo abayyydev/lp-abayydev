@@ -15,7 +15,7 @@ export default function ProfileManager() {
   const [cvPreview, setCvPreview] = useState(null); // Menyimpan nama file atau status CV
 
   useEffect(() => {
-    axios.get("http://localhost:5000/profile").then((res) => {
+    axios.get("https://4g6q9fjz-5000.asse.devtunnels.ms/profile").then((res) => {
       if (res.data) {
         setForm(res.data);
         if (res.data.hero_image) setPreview(res.data.hero_image);
@@ -38,7 +38,7 @@ export default function ProfileManager() {
     if (cvFile) formData.append("cv_file", cvFile);
 
     try {
-      await axios.post("http://localhost:5000/profile", formData);
+      await axios.post("https://4g6q9fjz-5000.asse.devtunnels.ms/profile", formData);
       Swal.fire({
         title: "Sukses!",
         text: "Profil dan CV berhasil diperbarui.",
