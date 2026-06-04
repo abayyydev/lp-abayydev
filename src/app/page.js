@@ -136,9 +136,9 @@ export default function LandingPage() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start">
-                {/* Tombol WhatsApp (Fokus ke Jualan / Pelanggan) */}
+                {/* Tombol WhatsApp Mengambil dari Database */}
                 <a
-                  href="https://wa.me/6281234567890?text=Halo%20Akbar,%20saya%20melihat%20website%20portofolio%20Anda%20dan%20ingin%20berkonsultasi%20mengenai%20pembuatan%20proyek%20website."
+                  href={`https://wa.me/${profile?.whatsapp}?text=Halo%20Akbar,%20saya%20tertarik%20untuk%20konsultasi%20mengenai%20pembuatan%20project%20website.`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group relative px-8 py-4 bg-green-500 text-white font-bold rounded-2xl shadow-lg shadow-green-200 hover:shadow-xl hover:shadow-green-300 transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center gap-3 overflow-hidden"
@@ -150,96 +150,23 @@ export default function LandingPage() {
                   <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-green-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </a>
 
-                {/* Tombol Download CV (Fokus ke HRD - Sementara Placeholder) */}
-                {/* Tombol Download CV (Otomatis Render dari Database) */}
-                <button
-                  onClick={() => {
-                    if (!profile?.cv_html) {
-                      Swal.fire("Belum Tersedia", "CV belum di-generate di Admin Panel.", "info");
-                      return;
-                    }
-                    
-                    try {
-                      // Parse data JSON dari database
-                      const cvData = JSON.parse(profile.cv_html);
-                      
-                      // Buka window baru untuk mencetak
-                      const printWindow = window.open("", "_blank");
-                      
-                      // Susun ulang HTML CV
-                      printWindow.document.write(`
-                        <html>
-                          <head>
-                            <title>CV_${profile.full_name || "Developer"}</title>
-                            <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-                            <style>
-                              @media print {
-                                body { -webkit-print-color-adjust: exact; background: white; }
-                                @page { size: A4 portrait; margin: 15mm; }
-                              }
-                              body { font-family: 'Inter', sans-serif; background: #f8fafc; padding: 20px; }
-                              .cv-container { max-width: 800px; margin: 0 auto; background: white; padding: 40px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
-                            </style>
-                          </head>
-                          <body onload="setTimeout(() => { window.print(); window.close(); }, 500)">
-                            <div class="cv-container">
-                              <div class="text-center border-b-2 border-gray-800 pb-4 mb-6">
-                                <h1 class="text-3xl font-black uppercase tracking-wide text-gray-900">${profile.full_name || "NAMA LENGKAP"}</h1>
-                                <p class="text-blue-600 font-bold uppercase tracking-wider text-sm mt-1">${profile.role || "JABATAN"}</p>
-                                <p class="text-xs text-gray-500 mt-2">
-                                  ${profile.linkedin_link ? `LinkedIn` : ""} | ${profile.github_link ? `GitHub` : ""} | Dibuat dari Portofolio Resmi
-                                </p>
-                              </div>
-
-                              ${cvData.summary ? `
-                              <div class="mb-6">
-                                <h2 class="text-sm font-black uppercase text-gray-900 tracking-wider border-b border-gray-300 pb-1 mb-2">Ringkasan Profesional</h2>
-                                <p class="text-xs text-gray-700 leading-relaxed whitespace-pre-wrap">${cvData.summary}</p>
-                              </div>` : ""}
-
-                              ${cvData.experiences && cvData.experiences.length > 0 ? `
-                              <div class="mb-6">
-                                <h2 class="text-sm font-black uppercase text-gray-900 tracking-wider border-b border-gray-300 pb-1 mb-2">Pengalaman Kerja</h2>
-                                ${cvData.experiences.map(exp => `
-                                  <div class="mb-3">
-                                    <div class="flex justify-between font-bold text-xs text-gray-800">
-                                      <span>${exp.company} ${exp.role ? `— ${exp.role}` : ""}</span>
-                                      <span>${exp.period}</span>
-                                    </div>
-                                    <div class="text-xs text-gray-600 mt-1 whitespace-pre-wrap pl-3 border-l-2 border-gray-200 leading-relaxed">${exp.description}</div>
-                                  </div>
-                                `).join('')}
-                              </div>` : ""}
-
-                              ${cvData.educations && cvData.educations.length > 0 ? `
-                              <div>
-                                <h2 class="text-sm font-black uppercase text-gray-900 tracking-wider border-b border-gray-300 pb-1 mb-2">Pendidikan</h2>
-                                ${cvData.educations.map(edu => `
-                                  <div class="mb-3">
-                                    <div class="flex justify-between font-bold text-xs text-gray-800">
-                                      <span>${edu.school} ${edu.degree ? `— ${edu.degree}` : ""}</span>
-                                      <span>${edu.period}</span>
-                                    </div>
-                                    ${edu.gpa ? `<p class="text-[11px] text-gray-500 mt-0.5">IPK: ${edu.gpa}</p>` : ""}
-                                  </div>
-                                `).join('')}
-                              </div>` : ""}
-                            </div>
-                          </body>
-                        </html>
-                      `);
-                      printWindow.document.close();
-                    } catch (e) {
-                      Swal.fire("Error", "Gagal memproses data CV.", "error");
+                {/* Tombol Download CV Mengunduh File langsung */}
+                <a
+                  href={profile?.cv_link || "#"} 
+                  target={profile?.cv_link ? "_blank" : "_self"}
+                  onClick={(e) => {
+                    if(!profile?.cv_link) {
+                      e.preventDefault();
+                      Swal.fire("Info", "Berkas CV belum tersedia.", "info");
                     }
                   }}
                   className="group px-8 py-4 bg-white text-slate-700 font-bold rounded-2xl border border-slate-200 hover:border-blue-300 hover:text-blue-600 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center gap-2"
                 >
                   <span className="material-symbols-outlined text-xl group-hover:-translate-y-1 transition-transform">
-                    print
+                    download
                   </span>
-                  <span>Print / Save CV</span>
-                </button>
+                  <span>Download CV</span>
+                </a>
               </div>
             </div>
 
@@ -596,7 +523,7 @@ export default function LandingPage() {
 
                 <div className="mt-8 pt-8 border-t border-slate-200">
                   <a
-                    href="mailto:akbarfirdaus009@gmail.com"
+                    href={`mailto:${profile?.email || 'akbarfirdaus009@gmail.com'}`}
                     className="w-full py-4 bg-slate-800 text-white font-bold rounded-xl shadow-lg hover:bg-slate-900 transition-all flex items-center justify-center gap-2"
                   >
                     <span className="material-symbols-outlined">mail</span>
