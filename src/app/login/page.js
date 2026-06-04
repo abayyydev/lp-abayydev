@@ -16,7 +16,7 @@ export default function LoginPage() {
     setIsLoading(true);
     
     try {
-      const res = await axios.post("https://4g6q9fjz-5000.asse.devtunnels.ms/login", form);
+      const res = await axios.post("http://localhost:5000/login", form);
 
       // Simpan Token di LocalStorage browser
       localStorage.setItem("token", res.data.token);
