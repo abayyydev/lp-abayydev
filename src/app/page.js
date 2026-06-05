@@ -41,9 +41,23 @@ export default function LandingPage() {
 
         // --- TAMBAHAN: Silently Track Visitor ---
         // Tidak perlu dimasukkan ke dalam state atau ditampilkan, cukup tembak API-nya
-        axios.post("https://ukmelrahma.my.id/portofolio-abayyy/track", {
-          page_url: window.location.pathname // Akan mencatat "/"
-        }).catch(() => {}); // Abaikan jika error agar tidak mengganggu UI pengguna
+        try {
+          // Ambil titik lokasi otomatis dari IP Address
+          const loc = await axios.get("http://ip-api.com/json/");
+          
+          axios.post("https://ukmelrahma.my.id/portofolio-abayyy/track", {
+            page_url: window.location.pathname,
+            latitude: loc.data.lat,
+            longitude: loc.data.lon
+          }).catch(() => {}); 
+        } catch (err) {
+          // Jika API lokasi gagal, tetap catat pengunjung tanpa koordinat
+          axios.post("https://ukmelrahma.my.id/portofolio-abayyy/track", {
+            page_url: window.location.pathname,
+            latitude: null,
+            longitude: null
+          }).catch(() => {});
+        }// Abaikan jika error agar tidak mengganggu UI pengguna
 
       } catch (error) {
         console.error("Gagal ambil data:", error);
