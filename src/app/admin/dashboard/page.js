@@ -27,17 +27,24 @@ export default function DashboardOverview() {
     const storedName = localStorage.getItem("username");
     if (storedName) setAdminName(storedName);
 
-    async function fetchDashboardStats() {
+   async function fetchDashboardStats() {
       try {
         const token = localStorage.getItem("token") || "";
         const config = { headers: { Authorization: `Bearer ${token}` } };
 
-        // Tarik semua data secara bersamaan (Parallel Fetching)
+        // Kita tangkap error di masing-masing request agar tidak membatalkan semuanya
         const [projectsRes, skillsRes, messagesRes, analyticsRes] = await Promise.all([
-          axios.get("https://ukmelrahma.my.id/portofolio-abayyy/projects"),
-          axios.get("https://ukmelrahma.my.id/portofolio-abayyy/skills"),
-          axios.get("https://ukmelrahma.my.id/portofolio-abayyy/messages", config),
-          axios.get("https://ukmelrahma.my.id/portofolio-abayyy/analytics", config),
+          axios.get("https://ukmelrahma.my.id/portofolio-abayyy/projects")
+               .catch(err => { console.error("Gagal load Projects:", err); return { data: [] }; }),
+               
+          axios.get("https://ukmelrahma.my.id/portofolio-abayyy/skills")
+               .catch(err => { console.error("Gagal load Skills:", err); return { data: [] }; }),
+               
+          axios.get("https://ukmelrahma.my.id/portofolio-abayyy/messages", config)
+               .catch(err => { console.error("Gagal load Messages:", err); return { data: [] }; }),
+               
+          axios.get("https://ukmelrahma.my.id/portofolio-abayyy/analytics", config)
+               .catch(err => { console.error("Gagal load Analytics:", err); return { data: {} }; }),
         ]);
 
         setStats({
@@ -48,7 +55,7 @@ export default function DashboardOverview() {
           todayVisits: analyticsRes.data.today_visits || 0,
         });
       } catch (error) {
-        console.error("Gagal memuat statistik dashboard:", error);
+        console.error("Kesalahan utama pemuatan dashboard:", error);
       } finally {
         setLoading(false);
       }
