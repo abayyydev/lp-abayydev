@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Analytics } from '@vercel/analytics/react';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,14 +17,14 @@ export const metadata = {
   title: "AbayyyDev - Portfolio",
   description: "Web Developer Portfolio",
 };
-
 export default function RootLayout({ children }) {
   return (
-    // Tambahkan suppressHydrationWarning di sini
     <html lang="en" suppressHydrationWarning>
-      {/* Tambahkan juga di body untuk berjaga-jaga */}
       <body suppressHydrationWarning>
         {children}
+        
+        {/* 2. Letakkan komponen Analytics di bagian paling bawah dalam body */}
+        <Analytics />
       </body>
     </html>
   );

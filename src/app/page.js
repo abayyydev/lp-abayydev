@@ -170,14 +170,17 @@ export default function LandingPage() {
                 </a>
 
                 <a
-                  href={profile?.cv_link || "#"} 
-                  target={profile?.cv_link ? "_blank" : "_self"}
-                  onClick={(e) => {
-                    if(!profile?.cv_link) {
-                      e.preventDefault();
-                      Swal.fire("Info", "Berkas CV belum tersedia di database.", "info");
-                    }
-                  }}
+     href={profile?.cv_link || "#"} 
+     target={profile?.cv_link ? "_blank" : "_self"}
+     onClick={(e) => {
+       // Kirim data ke Vercel Analytics
+       track('Klik_Download_CV');
+       
+       if(!profile?.cv_link) {
+         e.preventDefault();
+         Swal.fire("Info", "Berkas CV belum tersedia di database.", "info");
+       }
+     }}
                   className="group px-8 py-4 bg-white text-slate-700 font-bold rounded-2xl border-2 border-slate-100 hover:border-blue-500 hover:text-blue-600 hover:shadow-xl hover:shadow-blue-100/50 transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center gap-2"
                 >
                   <span className="material-symbols-outlined text-xl group-hover:-translate-y-1 transition-transform">download</span>
