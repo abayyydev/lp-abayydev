@@ -12,7 +12,7 @@ export default function InboxManager() {
 
   const fetchMessages = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/messages");
+      const res = await axios.get("https://ukmelrahma.my.id/portofolio-abayyy/messages");
       setMessages(res.data);
     } catch (error) {
       console.error("Gagal ambil pesan");
@@ -34,7 +34,7 @@ export default function InboxManager() {
 
     if (result.isConfirmed) {
       try {
-        await axios.delete(`http://localhost:5000/messages/${id}`);
+        await axios.delete(`https://ukmelrahma.my.id/portofolio-abayyy/messages/${id}`);
         fetchMessages(); // Refresh data
         Swal.fire({
           title: "Terhapus!",

@@ -29,9 +29,9 @@ export default function LandingPage() {
     const fetchData = async () => {
       try {
         const [resProfile, resSkills, resProjects] = await Promise.all([
-          axios.get("http://localhost:5000/profile"),
-          axios.get("http://localhost:5000/skills"),
-          axios.get("http://localhost:5000/projects"),
+          axios.get("https://ukmelrahma.my.id/portofolio-abayyy/profile"),
+          axios.get("https://ukmelrahma.my.id/portofolio-abayyy/skills"),
+          axios.get("https://ukmelrahma.my.id/portofolio-abayyy/projects"),
         ]);
 
         setProfile(resProfile.data);
@@ -74,7 +74,7 @@ export default function LandingPage() {
   const handleSendMsg = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/messages", msgForm);
+      await axios.post("https://ukmelrahma.my.id/portofolio-abayyy/messages", msgForm);
       Swal.fire({
         title: "Terkirim!",
         text: "Pesan Anda telah saya terima. Saya akan segera membalasnya.",

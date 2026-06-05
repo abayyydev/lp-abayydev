@@ -27,7 +27,7 @@ export default function ProjectsManager() {
 
   const fetchProjects = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/projects");
+      const res = await axios.get("https://ukmelrahma.my.id/portofolio-abayyy/projects");
       setProjects(res.data);
     } catch (error) {
       console.error("Error fetching projects");
@@ -36,7 +36,7 @@ export default function ProjectsManager() {
 
   const fetchSkills = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/skills");
+      const res = await axios.get("https://ukmelrahma.my.id/portofolio-abayyy/skills");
       setAvailableSkills(res.data);
     } catch (error) {
       console.error("Error fetching skills");
@@ -89,7 +89,7 @@ export default function ProjectsManager() {
 
     if (result.isConfirmed) {
       try {
-        await axios.delete(`http://localhost:5000/projects/${id}`);
+        await axios.delete(`https://ukmelrahma.my.id/portofolio-abayyy/projects/${id}`);
         Swal.fire({
           title: "Terhapus!",
           text: "Project berhasil dihapus.",
@@ -155,9 +155,9 @@ export default function ProjectsManager() {
 
     try {
       if (editId) {
-        await axios.put(`http://localhost:5000/projects/${editId}`, formData);
+        await axios.put(`https://ukmelrahma.my.id/portofolio-abayyy/projects/${editId}`, formData);
       } else {
-        await axios.post("http://localhost:5000/projects", formData);
+        await axios.post("https://ukmelrahma.my.id/portofolio-abayyy/projects", formData);
       }
       Swal.fire({
         title: "Berhasil!",

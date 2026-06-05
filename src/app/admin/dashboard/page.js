@@ -14,9 +14,9 @@ export default function DashboardOverview() {
     async function fetchDashboardStats() {
       try {
         const [projectsRes, skillsRes, messagesRes] = await Promise.all([
-          axios.get("http://localhost:5000/projects"),
-          axios.get("http://localhost:5000/skills"),
-          axios.get("http://localhost:5000/messages"),
+          axios.get("https://ukmelrahma.my.id/portofolio-abayyy/projects"),
+          axios.get("https://ukmelrahma.my.id/portofolio-abayyy/skills"),
+          axios.get("https://ukmelrahma.my.id/portofolio-abayyy/messages"),
         ]);
 
         setStats({

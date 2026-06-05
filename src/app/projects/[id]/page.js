@@ -25,7 +25,7 @@ export default function ProjectDetail({ params }) {
   const getProjectDetail = async (idProject) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/projects/${idProject}`
+        `https://ukmelrahma.my.id/portofolio-abayyy/projects/${idProject}`
       );
       const data = response.data;
       setProject(data);
@@ -65,7 +65,7 @@ export default function ProjectDetail({ params }) {
 
   const getRelatedProjects = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/projects");
+      const response = await axios.get("https://ukmelrahma.my.id/portofolio-abayyy/projects");
       if (project) {
         const filtered = response.data.filter((p) => p.id !== id).slice(0, 3);
         setRelatedProjects(filtered);

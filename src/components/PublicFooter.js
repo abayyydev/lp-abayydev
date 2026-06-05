@@ -11,7 +11,7 @@ export default function PublicFooter() {
   // Mengambil data profil dari backend khusus untuk footer
   useEffect(() => {
     axios
-      .get("http://localhost:5000/profile")
+      .get("https://ukmelrahma.my.id/portofolio-abayyy/profile")
       .then((res) => {
         if (res.data) setProfile(res.data);
       })
