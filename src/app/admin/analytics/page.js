@@ -170,7 +170,7 @@ export default function AnalyticsDashboard() {
               style={{ border: 0 }}
               loading="lazy"
               allowFullScreen
-              src={`https://maps.google.com/maps?q=${selectedLocation.lat},${selectedLocation.lon}&t=&z=13&ie=UTF8&iwloc=&output=embed`}
+              src={`https://maps.google.com/maps?q=${selectedLocation.lat},${selectedLocation.lon}&t=&z=14&ie=UTF8&iwloc=&output=embed`}
             ></iframe>
           ) : (
             <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400 p-6 text-center">
@@ -256,9 +256,14 @@ export default function AnalyticsDashboard() {
                       </span>
                     </td>
                     <td className="p-4">
-                      <div className="text-sm font-medium text-slate-800">
-                        {log?.city ? `${log.city}, ${log.country}` : "Lokasi Tidak Diketahui"}
-                      </div>
+                        <div className="text-sm font-medium text-slate-800">
+                            {log?.city 
+                            ? `${log.city}, ${log.country}` 
+                            : log?.latitude && log?.longitude 
+                            ? `Lat: ${log.latitude}, Lon: ${log.longitude}` 
+                            : "Lokasi Tidak Diketahui"
+                            }
+                        </div>
                     </td>
                     <td className="p-4 text-center">
                       {log?.latitude && log?.longitude ? (
