@@ -55,9 +55,10 @@ export default function AdminLayout({ children }) {
     });
   };
 
-  // Konfigurasi list menu (Dashboard ditambahkan di urutan pertama)
+  // Konfigurasi list menu (Menu Analytics ditambahkan)
   const tabs = [
     { name: "Dashboard", path: "/admin/dashboard", icon: "dashboard" },
+    { name: "Analytics", path: "/admin/analytics", icon: "analytics" },
     { name: "Projects", path: "/admin/projects", icon: "folder" },
     { name: "Profile", path: "/admin/profile", icon: "person" },
     { name: "Skills", path: "/admin/skills", icon: "bolt" },
