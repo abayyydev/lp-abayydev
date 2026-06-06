@@ -9,6 +9,11 @@ export default function LoginPage() {
   const [form, setForm] = useState({ username: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  
+  // State untuk fitur Lockout (Rate Limiting)
+  const [failedAttempts, setFailedAttempts] = useState(0);
+  const [penaltyCount, setPenaltyCount] = useState(0);
+  
   const router = useRouter();
 
   const handleLogin = async (e) => {
@@ -17,6 +22,10 @@ export default function LoginPage() {
     
     try {
       const res = await axios.post("https://ukmelrahma.my.id/portofolio-abayyy/login", form);
+
+      // Reset hitungan jika berhasil login
+      setFailedAttempts(0);
+      setPenaltyCount(0);
 
       // Simpan Token di LocalStorage browser
       localStorage.setItem("token", res.data.token);
@@ -31,12 +40,48 @@ export default function LoginPage() {
         router.push("/admin"); // Redirect ke dashboard
       });
     } catch (error) {
-      Swal.fire({
-        title: "Akses Ditolak",
-        text: "Username atau Password yang Anda masukkan salah.",
-        icon: "error",
-        confirmButtonColor: "#ef4444",
-      });
+      const currentAttempts = failedAttempts + 1;
+      
+      if (currentAttempts >= 3) {
+        // Hitung waktu tunggu: 30s * (2 ^ penaltyCount) -> 30s, 60s, 120s, 240s, dst.
+        const waitTimeSeconds = 30 * Math.pow(2, penaltyCount);
+        
+        let timerInterval;
+        Swal.fire({
+          title: "Sistem Terkunci!",
+          html: `Terlalu banyak percobaan gagal.<br/>Silakan tunggu <b>${waitTimeSeconds}</b> detik sebelum mencoba lagi.`,
+          icon: "warning",
+          timer: waitTimeSeconds * 1000,
+          timerProgressBar: true,
+          allowOutsideClick: false, // Mencegah klik di luar pop-up
+          allowEscapeKey: false,    // Mencegah tekan tombol ESC
+          showConfirmButton: false, // Sembunyikan tombol OK agar harus menunggu
+          didOpen: () => {
+            const b = Swal.getHtmlContainer().querySelector('b');
+            timerInterval = setInterval(() => {
+              b.textContent = Math.ceil(Swal.getTimerLeft() / 1000);
+            }, 1000);
+          },
+          willClose: () => {
+            clearInterval(timerInterval);
+          }
+        });
+
+        // Reset jumlah percobaan (mulai dari 0 lagi untuk 3 kesempatan berikutnya)
+        // dan naikkan level penalti untuk kemungkinan gagal berikutnya
+        setFailedAttempts(0);
+        setPenaltyCount(penaltyCount + 1);
+        
+      } else {
+        // Jika belum 3 kali salah
+        setFailedAttempts(currentAttempts);
+        Swal.fire({
+          title: "Akses Ditolak",
+          text: `Username atau Password salah. (Sisa percobaan: ${3 - currentAttempts})`,
+          icon: "error",
+          confirmButtonColor: "#ef4444",
+        });
+      }
     } finally {
       setIsLoading(false);
     }
