@@ -1,13 +1,17 @@
 "use client";
 import { useEffect, useRef } from "react";
 import axios from "axios";
+import { usePathname } from "next/navigation"; // 1. Import usePathname
 
 export default function VisitorTracker() {
   const hasTracked = useRef(false);
+  const pathname = usePathname();
 
   useEffect(() => {
+    if (pathname && pathname.startsWith("/admin")) return;
     if (hasTracked.current) return;
     hasTracked.current = true;
+    
 
     const trackVisitor = async () => {
       const currentUrl = window.location.href;
