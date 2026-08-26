@@ -1,27 +1,30 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { Analytics } from '@vercel/analytics/react';
 import VisitorTracker from '@/components/VisitorTracker';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
 });
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 
 export const metadata = {
-  title: "AbayyyDev - Portfolio",
-  description: "Web Developer Portfolio",
+  title: "AbayyyDev — Fullstack Developer Portfolio",
+  description: "Professional portfolio of AbayyyDev — Fullstack Web Developer specializing in modern web technologies, custom systems, and digital solutions.",
+  keywords: "web developer, fullstack, portfolio, react, next.js, node.js",
+  openGraph: {
+    title: "AbayyyDev — Fullstack Developer Portfolio",
+    description: "Professional portfolio showcasing modern web development projects and digital solutions.",
+    type: "website",
+  },
 };
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={inter.variable}>
+      <body className="bg-[#0a0a0f] text-[#f0f0f5] antialiased" suppressHydrationWarning>
         <VisitorTracker />
         {children}
         

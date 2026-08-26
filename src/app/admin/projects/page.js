@@ -12,6 +12,7 @@ export default function ProjectsManager() {
   const [form, setForm] = useState({
     title: "",
     description: "",
+    role: "",
     demo_link: "",
     repo_link: "",
   });
@@ -45,7 +46,7 @@ export default function ProjectsManager() {
 
   const openCreateModal = () => {
     setEditId(null);
-    setForm({ title: "", description: "", demo_link: "", repo_link: "" });
+    setForm({ title: "", description: "", role: "", demo_link: "", repo_link: "" });
     setFile(null);
     setGalleryFiles([]);
     setTechStack([{ skill_id: "", name: "", icon: "", percentage: 0 }]);
@@ -57,6 +58,7 @@ export default function ProjectsManager() {
     setForm({
       title: project.title,
       description: project.description,
+      role: project.role || "",
       demo_link: project.demo_link || "",
       repo_link: project.repo_link || "",
     });
@@ -300,6 +302,16 @@ export default function ProjectsManager() {
                       placeholder="Masukkan nama project..."
                       value={form.title}
                       onChange={(e) => setForm({ ...form, title: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 block">Role di Project</label>
+                    <input
+                      className="w-full bg-slate-50 border border-slate-200 text-slate-800 p-3.5 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-white outline-none transition-all"
+                      placeholder="Misal: Frontend Developer, UI/UX Designer..."
+                      value={form.role}
+                      onChange={(e) => setForm({ ...form, role: e.target.value })}
                       required
                     />
                   </div>
